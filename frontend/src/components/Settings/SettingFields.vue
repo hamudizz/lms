@@ -30,9 +30,14 @@
 						</CodeEditor>
 					</div>
 
-					<div v-else-if="field.type == 'Upload'" class="space-y-2">
-						<div class="text-sm text-ink-gray-5 mb-1">
-							{{ __(field.label) }}
+					<div v-else-if="field.type == 'Upload'">
+						<div class="space-y-1 mb-2">
+							<div class="text-sm text-ink-gray-5 font-medium">
+								{{ __(field.label) }}
+							</div>
+							<div class="text-sm text-ink-gray-5 leading-5">
+								{{ __(field.description) }}
+							</div>
 						</div>
 						<FileUploader
 							v-if="!data[field.name]"
