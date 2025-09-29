@@ -1653,18 +1653,18 @@ def get_progress_distribution(progressList):
 
 @frappe.whitelist(allow_guest=True)
 def get_pwa_manifest():
-	title = frappe.db.get_single_value("Website Settings", "app_name") or "Frappe Learning"
+	title = frappe.db.get_single_value("Website Settings", "app_name") or "Gobez"
 	banner_image = frappe.db.get_single_value("Website Settings", "banner_image")
 
 	manifest = {
 		"name": title,
 		"short_name": title,
-		"description": "Easy to use, 100% open source Learning Management System",
+		"description": "Learn for tomorrow",
 		"start_url": "/lms",
 		"icons": [
 			{
 				"src": banner_image or "/assets/lms/frontend/manifest/manifest-icon-192.maskable.png",
-				"sizes": "192x192",
+				"sizes": "150x150",
 				"type": "image/png",
 				"purpose": "maskable any",
 			}
