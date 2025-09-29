@@ -1664,7 +1664,7 @@ def get_pwa_manifest():
 		"icons": [
 			{
 				"src": banner_image or "/assets/lms/frontend/manifest/manifest-icon-192.maskable.png",
-				"sizes": "192x192",
+				"sizes": "250x250",
 				"type": "image/png",
 				"purpose": "maskable any",
 			}
