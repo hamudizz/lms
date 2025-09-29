@@ -60,7 +60,7 @@
 					theme="blue"
 					size="lg"
 				>
-					{{ __('Go to <router-link to="/register">subscription</router-link> and register to enroll for this course.') }}
+					{{ __('Go to subscription and register to enroll for this course.') }}
 				</Badge>
 				<Button
 					v-else-if="!user.data?.is_moderator && !is_instructor()"
