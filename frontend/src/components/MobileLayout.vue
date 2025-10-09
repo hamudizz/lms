@@ -128,10 +128,22 @@ const addOtherLinks = () => {
 			label: 'Log out',
 			icon: 'LogOut',
 		})
+		// Add Back to Home link at the beginning for better visibility
+		otherLinks.value.unshift({
+			label: 'Back to Home',
+			icon: 'Home',
+			href: '/gobez-home' // Direct absolute path
+		})
 	} else {
 		otherLinks.value.push({
 			label: 'Log in',
 			icon: 'LogIn',
+		})
+		// Add Back to Home link for non-logged in users too
+		otherLinks.value.unshift({
+			label: 'Back to Home',
+			icon: 'Home',
+			href: '/gobez-home' // Direct absolute path
 		})
 	}
 }
@@ -204,6 +216,8 @@ const handleClick = (tab) => {
 				username: userResource.data?.username,
 			},
 		})
+	else if (tab.label == 'Back to Home' && tab.href) 
+		window.location.href = tab.href // Use the direct href
 	else router.push({ name: tab.to })
 }
 
