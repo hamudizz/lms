@@ -128,6 +128,11 @@ const addOtherLinks = () => {
 			label: 'Log out',
 			icon: 'LogOut',
 		})
+		otherLinks.value.push({
+			label: 'Home',
+			icon: 'Home',
+			to:'Home',
+		})
 	} else {
 		otherLinks.value.push({
 			label: 'Log in',
