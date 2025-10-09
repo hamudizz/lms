@@ -131,7 +131,6 @@ const addOtherLinks = () => {
 		otherLinks.value.push({
 			label: 'Home',
 			icon: 'Home',
-			to:'Home',
 		})
 	} else {
 		otherLinks.value.push({
@@ -209,7 +208,9 @@ const handleClick = (tab) => {
 				username: userResource.data?.username,
 			},
 		})
+	else if (tab.label == 'Home') window.location.href = '/gobez-home'
 	else router.push({ name: tab.to })
+	
 }
 
 const isVisible = (tab) => {
