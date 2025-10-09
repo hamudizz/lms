@@ -1,225 +1,154 @@
-<template>
-	<div class="flex h-full flex-col relative">
-		<div class="h-full pb-10" id="scrollContainer">
-			<slot />
-		</div>
-
-		<div class="relative z-20">
-			<!-- Dropdown menu -->
-			<div
-				class="fixed bottom-16 right-2 w-[80%] rounded-md bg-surface-white text-base p-5 space-y-4 shadow-md"
-				v-if="showMenu"
-				ref="menu"
-			>
-				<div
-					v-for="link in otherLinks"
-					:key="link.label"
-					class="flex items-center space-x-2 cursor-pointer"
-					@click="handleClick(link)"
+<div class="sticky-top">
+	<header class="navbar navbar-expand" role="navigation">
+		<div class="container">
+			<a class="navbar-brand navbar-home" href="/app">
+				<img
+					class="app-logo"
+					src="{{ frappe.boot.app_data[0].app_logo_url }}"
+					alt="{{ __("App Logo") }}"
 				>
-					<component
-						:is="icons[link.icon]"
-						class="h-4 w-4 stroke-1.5 text-ink-gray-5"
-					/>
-					<div>{{ link.label }}</div>
-				</div>
+			</a>
+			<ul class="nav navbar-nav d-none d-sm-flex" id="navbar-breadcrumbs"></ul>
+			<div class="collapse navbar-collapse justify-content-end">
+				<form class="form-inline fill-width justify-content-end" role="search" onsubmit="return false;">
+					{% if (frappe.boot.read_only) { %}
+						<span class="indicator-pill yellow no-indicator-dot read-only-banner" title="{%= __("Your site is undergoing maintenance or being updated.") %}">
+							{%= __("Read Only Mode") %}
+						</span>
+					{% } %}
+					{% if (frappe.boot.user.impersonated_by) { %}
+						<span class="indicator-pill red no-indicator-dot" title="{%= __("You are impersonating as another user.") %}">
+							{%= __("Impersonating {0}", [frappe.boot.user.name]) %}
+						</span>
+					{% } %}
+					<div class="input-group search-bar text-muted hidden">
+						<input
+							id="navbar-search"
+							type="text"
+							class="form-control"
+							placeholder="{%= __('Search or type a command ({0})', [frappe.utils.is_mac() ? '⌘ + K' : 'Ctrl + K']) %}"
+							aria-haspopup="true"
+						>
+						<span class="search-icon">
+							<svg class="icon icon-sm"><use href="#icon-search"></use></svg>
+						</span>
+					</div>
+				</form>
+				<ul class="navbar-nav">
+					<li class="nav-item dropdown dropdown-notifications dropdown-mobile hidden">
+						<button
+							class="btn-reset nav-link notifications-icon text-muted"
+							data-toggle="dropdown"
+							aria-haspopup="true"
+							aria-expanded="false"
+						>
+							<span class="notifications-seen">
+								<span class="sr-only">{{ __("No new notifications") }}</span>
+								<svg class="es-icon icon-sm" style="stroke:none;"><use href="#es-line-notifications"></use></svg>
+							</span>
+							<span class="notifications-unseen">
+								<span class="sr-only">{{ __("You have unseen notifications") }}</span>
+								<svg class="es-icon icon-sm"><use href="#es-line-notifications-unseen"></use></svg>
+							</span>
+						</button>
+						<div class="dropdown-menu notifications-list dropdown-menu-right" role="menu">
+							<div class="notification-list-header">
+								<div class="header-items"></div>
+								<div class="header-actions"></div>
+							</div>
+							<div class="notification-list-body">
+								<div class="panel-notifications"></div>
+								<div class="panel-events"></div>
+								<div class="panel-changelog-feed"></div>
+							</div>
+						</div>
+					</li>
+					<li class="nav-item dropdown dropdown-message dropdown-mobile hidden">
+						<button
+							class="btn-reset nav-link notifications-icon text-muted"
+							data-toggle="dropdown"
+							aria-haspopup="true"
+							aria-expanded="true"
+						>
+							<span>
+								<svg class="es-icon icon-sm"><use href="#es-line-chat-alt"></use></svg>
+							</span>
+						</button>
+					</li>
+					<li class="vertical-bar d-none d-sm-block"></li>
+					<li class="nav-item dropdown dropdown-help dropdown-mobile d-none d-lg-block">
+						<button
+							class="btn-reset nav-link"
+							data-toggle="dropdown"
+							aria-controls="toolbar-help"
+							aria-label="{{ __("Help Dropdown") }}"
+						>
+							<span>
+								{{ __("Help") }}
+								<svg class="es-icon icon-xs"><use href="#es-line-down"></use></svg>
+							</span>
+						</button>
+						<div class="dropdown-menu dropdown-menu-right" id="toolbar-help" role="menu">
+							<div id="help-links"></div>
+							<div class="dropdown-divider documentation-links"></div>
+							{% for item in navbar_settings.help_dropdown %}
+								{% if (!item.hidden) { %}
+									{% if (item.route) { %}
+										<a class="dropdown-item" href="{{ item.route }}">
+											{%= __(item.item_label) %}
+										</a>
+									{% } else if (item.action) { %}
+										<button class="btn-reset dropdown-item" onclick="return {{ item.action }}">
+											{%= __(item.item_label) %}
+										</button>
+									{% } else { %}
+										<div class="dropdown-divider"></div>
+									{% } %}
+								{% } %}
+							{% endfor %}
+						</div>
+					</li>
+					<li class="nav-item dropdown dropdown-navbar-user dropdown-mobile">
+						<button
+							class="btn-reset nav-link"
+							data-toggle="dropdown"
+							aria-label="{{ __("User Menu") }}"
+						>
+							{{ avatar }}
+						</button>
+						<div class="dropdown-menu dropdown-menu-right" id="toolbar-user" role="menu">
+							{% for item in navbar_settings.settings_dropdown %}
+								{% var condition = item.condition ? eval(item.condition) : true %}
+								{% if (condition && !item.hidden) { %}
+									{% if (item.route) { %}
+										<a class="dropdown-item" href="{{ item.route }}">
+											{%= __(item.item_label) %}
+										</a>
+									{% } else if (item.action) { %}
+										<button class="btn-reset dropdown-item" onclick="return {{ item.action }}">
+											{%= __(item.item_label) %}
+										</button>
+									{% } else { %}
+										<div class="dropdown-divider"></div>
+									{% } %}
+								{% } %}
+							{% endfor %}
+						</div>
+					</li>
+				</ul>
 			</div>
+		</div>
+	</header>
 
-			<!-- Fixed menu -->
-			<div
-				v-if="sidebarSettings.data"
-				class="fixed bottom-0 left-0 w-full flex items-center justify-around border-t border-outline-gray-2 bg-surface-white standalone:pb-4 z-10"
-			>
-				<button
-					v-for="tab in sidebarLinks"
-					:key="tab.label"
-					:class="isVisible(tab) ? 'block' : 'hidden'"
-					class="flex flex-col items-center justify-center py-3 transition active:scale-95"
-					@click="handleClick(tab)"
-				>
-					<component
-						:is="icons[tab.icon]"
-						class="h-6 w-6 stroke-1.5"
-						:class="[isActive(tab) ? 'text-ink-gray-9' : 'text-ink-gray-5']"
-					/>
-				</button>
-				<button @click="toggleMenu">
-					<component
-						:is="icons['List']"
-						class="h-6 w-6 stroke-1.5 text-ink-gray-5"
-					/>
-				</button>
+	{% if !localStorage.getItem("dismissed_announcement_widget") && strip_html(navbar_settings.announcement_widget) != '' %}
+	<div class="announcement-widget form-message p-2 m-0" style="position: relative; z-index: -1; border-radius: 0; background-color: var(--bg-blue);">
+		<div class="container flex justify-between align-center mx-auto">
+			{{ navbar_settings.announcement_widget }}
+			<div class="close-message p-0 mr-2" style="position: relative;">
+			{{ frappe.utils.icon("close") }}
 			</div>
 		</div>
 	</div>
-</template>
-<script setup>
-import { getSidebarLinks } from '@/utils'
-import { useRouter } from 'vue-router'
-import { call } from 'frappe-ui'
-import { watch, ref, onMounted } from 'vue'
-import { sessionStore } from '@/stores/session'
-import { useSettings } from '@/stores/settings'
-import { usersStore } from '@/stores/user'
-import * as icons from 'lucide-vue-next'
+	{% endif %}
 
-const { logout, user } = sessionStore()
-let { isLoggedIn } = sessionStore()
-const { sidebarSettings } = useSettings()
-const router = useRouter()
-let { userResource } = usersStore()
-const sidebarLinks = ref(getSidebarLinks())
-const otherLinks = ref([])
-const showMenu = ref(false)
-const menu = ref(null)
-const isModerator = ref(false)
-const isInstructor = ref(false)
-
-onMounted(() => {
-	sidebarSettings.reload(
-		{},
-		{
-			onSuccess(data) {
-				filterLinksToShow(data)
-				addOtherLinks()
-			},
-		}
-	)
-})
-
-const handleOutsideClick = (e) => {
-	if (menu.value && !menu.value.contains(e.target)) {
-		showMenu.value = false
-	}
-}
-
-watch(showMenu, (val) => {
-	if (val) {
-		setTimeout(() => {
-			document.addEventListener('click', handleOutsideClick)
-		}, 0)
-	} else {
-		document.removeEventListener('click', handleOutsideClick)
-	}
-})
-
-const filterLinksToShow = (data) => {
-	Object.keys(data).forEach((key) => {
-		if (!parseInt(data[key])) {
-			sidebarLinks.value = sidebarLinks.value.filter(
-				(link) => link.label.toLowerCase().split(' ').join('_') !== key
-			)
-		}
-	})
-}
-
-const addOtherLinks = () => {
-	if (user) {
-		otherLinks.value.push({
-			label: 'Notifications',
-			icon: 'Bell',
-			to: 'Notifications',
-		})
-		otherLinks.value.push({
-			label: 'Profile',
-			icon: 'UserRound',
-		})
-		otherLinks.value.push({
-			label: 'Log out',
-			icon: 'LogOut',
-		})
-		otherLinks.value.push({
-			label: 'Home',
-			icon: 'Home',
-		})
-	} else {
-		otherLinks.value.push({
-			label: 'Log in',
-			icon: 'LogIn',
-		})
-	}
-}
-
-watch(userResource, () => {
-	if (userResource.data) {
-		isModerator.value = userResource.data.is_moderator
-		isInstructor.value = userResource.data.is_instructor
-		addPrograms()
-		if (isModerator.value || isInstructor.value) {
-			addProgrammingExercises()
-			addQuizzes()
-			addAssignments()
-		}
-	}
-})
-
-const addQuizzes = () => {
-	otherLinks.value.push({
-		label: 'Quizzes',
-		icon: 'CircleHelp',
-		to: 'Quizzes',
-	})
-}
-
-const addAssignments = () => {
-	otherLinks.value.push({
-		label: 'Assignments',
-		icon: 'Pencil',
-		to: 'Assignments',
-	})
-}
-
-const addPrograms = async () => {
-	let canAddProgram = await checkIfCanAddProgram()
-	if (!canAddProgram) return
-	let activeFor = ['Programs', 'ProgramDetail']
-	let index = 1
-
-	sidebarLinks.value.splice(index, 0, {
-		label: 'Programs',
-		icon: 'Route',
-		to: 'Programs',
-		activeFor: activeFor,
-	})
-}
-
-const checkIfCanAddProgram = async () => {
-	if (isModerator.value || isInstructor.value) {
-		return true
-	}
-	const programs = await call('lms.lms.utils.get_programs')
-	return programs.enrolled.length > 0 || programs.published.length > 0
-}
-
-let isActive = (tab) => {
-	return tab.activeFor?.includes(router.currentRoute.value.name)
-}
-
-const handleClick = (tab) => {
-	if (tab.label == 'Log in') window.location.href = '/login'
-	else if (tab.label == 'Log out')
-		logout.submit().then(() => {
-			isLoggedIn = false
-		})
-	else if (tab.label == 'Profile')
-		router.push({
-			name: 'Profile',
-			params: {
-				username: userResource.data?.username,
-			},
-		})
-	else if (tab.label == 'Home') window.location.href = '/gobez-home'
-	else router.push({ name: tab.to })
-	
-}
-
-const isVisible = (tab) => {
-	if (tab.label == 'Log in') return !isLoggedIn
-	else if (tab.label == 'Log out') return isLoggedIn
-	else return true
-}
-
-const toggleMenu = () => {
-	showMenu.value = !showMenu.value
-}
-</script>
+</div>
