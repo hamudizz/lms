@@ -132,7 +132,7 @@
 							</div>
 						</template>
 					</Tooltip>
-					<Tooltip :text="__('Powered by Learning')">
+					<Tooltip :text="__('Powered by Afkar Martech')">
 						<Zap
 							class="size-4 stroke-1.5 text-ink-gray-7 cursor-pointer"
 							@click="redirectToWebsite()"
@@ -176,7 +176,7 @@
 			:afterSkipAll="() => capture('onboarding_steps_skipped')"
 			:afterReset="(step) => capture('onboarding_step_reset_' + step)"
 			:afterResetAll="() => capture('onboarding_steps_reset')"
-			docsLink="https://docs.frappe.io/learning"
+			docsLink="#"
 		/>
 		<IntermediateStepModal
 			v-model="showIntermediateModal"
@@ -595,7 +595,7 @@ watch(userResource, async () => {
 })
 
 const redirectToWebsite = () => {
-	window.open('https://frappe.io/learning', '_blank')
+	window.open('https://lawh.dev', '_blank')
 }
 
 onUnmounted(() => {
