@@ -1,5 +1,40 @@
 [
  {
+  "category": "Grade 6 National Exam",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-09-15 16:55:31.062201",
+  "name": "Grade 6 National Exam"
+ },
+ {
+  "category": "Grade 8 National Exam",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-09-15 16:56:03.005928",
+  "name": "Grade 8 National Exam"
+ },
+ {
+  "category": "Grade 12 Natural National Exam",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-09-15 16:57:30.570662",
+  "name": "Grade 12 Natural National Exam"
+ },
+ {
+  "category": "Grade 12 Social National Exam",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-09-15 16:57:55.535119",
+  "name": "Grade 12 Social National Exam"
+ },
+ {
+  "category": "Podcast and video exam",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-11-24 18:24:15.712245",
+  "name": "Podcast and video exam"
+ },
+ {
   "category": "Web Development",
   "docstatus": 0,
   "doctype": "LMS Category",
@@ -47,5 +82,117 @@
   "doctype": "LMS Category",
   "modified": "2023-06-15 18:01:41.598282",
   "name": "Framework"
+ },
+ {
+  "category": "programming",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-12-30 00:54:38.869365",
+  "name": "programming"
+ },
+ {
+  "category": "Afaan Oromoo",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-11-20 10:00:46.734283",
+  "name": "Afaan Oromoo"
+ },
+ {
+  "category": "Gamified",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-12-06 13:53:28.746590",
+  "name": "Gamified"
+ },
+ {
+  "category": "Grade 7",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-07-24 16:40:06.681194",
+  "name": "Grade 7"
+ },
+ {
+  "category": "Grade 9",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-11-20 10:00:38.403711",
+  "name": "Grade 9"
+ },
+ {
+  "category": "Grade 10",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-11-20 10:00:43.953209",
+  "name": "Grade 10"
+ },
+ {
+  "category": "Grade 4",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-07-24 16:39:53.402057",
+  "name": "Grade 4"
+ },
+ {
+  "category": "Textbook",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-08-07 16:40:05.778091",
+  "name": "Textbook"
+ },
+ {
+  "category": "Grade 3",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-07-24 16:39:48.198383",
+  "name": "Grade 3"
+ },
+ {
+  "category": "Grade 8",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-07-24 16:40:09.762437",
+  "name": "Grade 8"
+ },
+ {
+  "category": "Grade 1",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-07-24 01:05:49.845249",
+  "name": "Grade 1"
+ },
+ {
+  "category": "Grade 2",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-07-24 16:39:37.480096",
+  "name": "Grade 2"
+ },
+ {
+  "category": "Grade 6",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-07-24 16:40:01.895512",
+  "name": "Grade 6"
+ },
+ {
+  "category": "Grade 5",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-07-24 16:39:57.319260",
+  "name": "Grade 5"
+ },
+ {
+  "category": "Trial",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-09-14 21:40:11.962244",
+  "name": "Trial"
+ },
+ {
+  "category": "Exam",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-08-11 17:20:13.377363",
+  "name": "Exam"
  }
 ]
