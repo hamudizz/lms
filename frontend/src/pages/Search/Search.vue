@@ -70,13 +70,19 @@
 						</Tooltip>
 						<div class="space-y-1 w-full">
 							<div class="flex items-center">
-								<div class="font-medium" v-html="result.title"></div>
+								<div
+									class="font-medium text-ink-gray-9"
+									v-html="result.title"
+								></div>
 								<div class="text-sm text-ink-gray-5 ml-2">
 									{{ getDocTypeTitle(result.doctype) }}
 								</div>
 								<div
 									v-if="
-										result.published_on || result.start_date || result.creation
+										result.published_on ||
+										result.start_date ||
+										result.creation ||
+										result.modified
 									"
 									class="ml-auto text-sm text-ink-gray-5"
 								>
@@ -84,12 +90,16 @@
 										dayjs(
 											result.published_on ||
 												result.start_date ||
-												result.creation
+												result.creation ||
+												result.modified
 										).format('DD MMM YYYY')
 									}}
 								</div>
 							</div>
-							<div class="leading-5" v-html="result.content"></div>
+							<div
+								class="leading-5 text-ink-gray-7"
+								v-html="result.content"
+							></div>
 						</div>
 					</div>
 				</div>
@@ -158,8 +168,20 @@ const generateSearchResults = () => {
 				searchResults.value.push(item)
 			})
 		})
-		searchResults.value.sort((a, b) => b.score - a.score)
+		sortResults()
 	}
+}
+
+const sortResults = () => {
+	searchResults.value.sort((a, b) => {
+		const dateA = new Date(
+			a.published_on || a.start_date || a.creation || a.modified
+		).getTime()
+		const dateB = new Date(
+			b.published_on || b.start_date || b.creation || b.modified
+		).getTime()
+		return dateB - dateA
+	})
 }
 
 const navigate = (result: any) => {

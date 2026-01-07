@@ -418,10 +418,16 @@
   {
    "link_doctype": "LMS Certificate",
    "link_fieldname": "batch_name"
+  },
+  {
+   "link_doctype": "LMS Payment",
+   "link_fieldname": "payment_for_document"
   }
  ],
  "modified": "2026-01-06 03:09:19.463569",
  "modified_by": "Administrator",
+ "modified": "2025-12-23 11:27:00.424331",
+ "modified_by": "sayali@frappe.io",
  "module": "LMS",
  "name": "LMS Batch",
  "owner": "Administrator",

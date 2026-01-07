@@ -8,6 +8,7 @@ from frappe import _
 from frappe.desk.doctype.dashboard_chart.dashboard_chart import get_result
 from frappe.desk.doctype.notification_log.notification_log import make_notification_logs
 from frappe.desk.notifications import extract_mentions
+from frappe.pulse.utils import get_frappe_version
 from frappe.rate_limiter import rate_limit
 from frappe.utils import (
 	add_months,
@@ -526,38 +527,17 @@ def get_lesson_count(course):
 @rate_limit(limit=500, seconds=60 * 60)
 def get_chart_data(
 	chart_name,
-	timespan="Select Date Range",
 	timegrain="Daily",
 	from_date=None,
 	to_date=None,
 ):
-	if not from_date:
-		from_date = add_months(getdate(), -1)
-	if not to_date:
-		to_date = getdate()
-
-	from_date = get_datetime(from_date).strftime("%Y-%m-%d")
-	to_date = get_datetime(to_date)
-
+	from_date, to_date = get_chart_date_range(from_date, to_date)
 	chart = frappe.get_doc("Dashboard Chart", chart_name)
 	doctype = chart.document_type
 	datefield = chart.based_on
 	value_field = chart.value_based_on or "1"
 
-	filters = [([chart.document_type, "docstatus", "<", 2])]
-	filters = filters + json.loads(chart.filters_json)
-	filters.append([doctype, datefield, ">=", from_date])
-	filters.append([doctype, datefield, "<=", to_date])
-
-	data = frappe.db.get_all(
-		doctype,
-		fields=[datefield, {"SUM": value_field}, {"COUNT": "*"}],
-		filters=filters,
-		group_by=datefield,
-		order_by=datefield,
-		as_list=True,
-	)
-
+	data = get_chart_details(doctype, datefield, value_field, chart, from_date, to_date)
 	result = get_result(data, timegrain, from_date, to_date, chart.chart_type)
 	data = []
 	for row in result:
@@ -568,6 +548,56 @@ def get_chart_data(
 			}
 		)
 	return data
+
+
+def get_chart_date_range(from_date, to_date):
+	if not from_date:
+		from_date = add_months(getdate(), -1)
+	if not to_date:
+		to_date = getdate()
+
+	from_date = get_datetime(from_date).strftime("%Y-%m-%d")
+	to_date = get_datetime(to_date)
+
+	return from_date, to_date
+
+
+def get_chart_filters(doctype, chart, datefield, from_date, to_date):
+	version = get_frappe_version()
+	if version.startswith("16."):
+		filters = [([chart.document_type, "docstatus", "<", 2])]
+		filters = filters + json.loads(chart.filters_json)
+		filters.append([doctype, datefield, ">=", from_date])
+		filters.append([doctype, datefield, "<=", to_date])
+	else:
+		filters = [([chart.document_type, "docstatus", "<", 2, False])]
+		filters = filters + json.loads(chart.filters_json)
+		filters.append([doctype, datefield, ">=", from_date, False])
+		filters.append([doctype, datefield, "<=", to_date, False])
+	return filters
+
+
+def get_chart_details(doctype, datefield, value_field, chart, from_date, to_date):
+	filters = get_chart_filters(doctype, chart, datefield, from_date, to_date)
+	version = get_frappe_version()
+	if version.startswith("16."):
+		return frappe.db.get_all(
+			doctype,
+			fields=[datefield, {"SUM": value_field}, {"COUNT": "*"}],
+			filters=filters,
+			group_by=datefield,
+			order_by=datefield,
+			as_list=True,
+		)
+	else:
+		return frappe.db.get_all(
+			doctype,
+			fields=[f"{datefield} as _unit", f"SUM({value_field})", "COUNT(*)"],
+			filters=filters,
+			group_by="_unit",
+			order_by="_unit asc",
+			as_list=True,
+		)
 
 
 @frappe.whitelist(allow_guest=True)
@@ -825,6 +855,7 @@ def get_course_fields():
 		"video_link",
 		"card_gradient",
 		"short_introduction",
+		"description",
 		"published",
 		"upcoming",
 		"featured",
@@ -1774,11 +1805,7 @@ def enroll_in_batch(batch, payment_name=None):
 	if not frappe.db.exists("LMS Batch", batch):
 		frappe.throw(_("The specified batch does not exist."))
 
-	batch_doc = frappe.db.get_value(
-		"LMS Batch", batch, ["name", "seat_count", "allow_self_enrollment", "paid_batch"], as_dict=True
-	)
 	payment_doc = get_payment_details(payment_name)
-	validate_enrollment_eligibility(batch_doc, payment_doc)
 	create_enrollment(batch, payment_doc)
 
 
@@ -1789,22 +1816,6 @@ def get_payment_details(payment_name):
 			"LMS Payment", payment_name, ["name", "source", "payment_received"], as_dict=True
 		)
 	return payment_doc
-
-
-def validate_enrollment_eligibility(batch_doc, payment_doc=None):
-	if frappe.db.exists("LMS Batch Enrollment", {"batch": batch_doc.name, "member": frappe.session.user}):
-		frappe.throw(_("You are already enrolled in this batch."))
-
-	if batch_doc.paid_batch:
-		if not payment_doc or not payment_doc.payment_received:
-			frappe.throw(_("Payment is required to enroll in this batch."))
-
-	elif not batch_doc.allow_self_enrollment:
-		frappe.throw(_("Enrollment in this batch is restricted. Please contact the Administrator."))
-
-	students = frappe.db.count("LMS Batch Enrollment", {"batch": batch_doc.name})
-	if batch_doc.seat_count and students >= batch_doc.seat_count:
-		frappe.throw(_("There are no seats available in this batch."))
 
 
 def create_enrollment(batch, payment_doc=None):
