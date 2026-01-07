@@ -11,13 +11,20 @@
   "column_break_cwjx",
   "enforce_course_order",
   "column_break_mikl",
+  "program_image",
   "section_break_vhhu",
   "program_courses",
   "program_members",
   "section_break_pppe",
   "course_count",
   "column_break_qwhf",
-  "member_count"
+  "member_count",
+  "gobez_academy_section",
+  "paid",
+  "category",
+  "column_break_grwp",
+  "price",
+  "currency"
  ],
  "fields": [
   {
@@ -87,13 +94,50 @@
   {
    "fieldname": "column_break_mikl",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "program_image",
+   "fieldtype": "Attach Image",
+   "label": "Program Image"
+  },
+  {
+   "fieldname": "gobez_academy_section",
+   "fieldtype": "Section Break",
+   "label": "Gobez Academy"
+  },
+  {
+   "default": "0",
+   "fieldname": "paid",
+   "fieldtype": "Check",
+   "label": "Paid"
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "label": "Category",
+   "options": "LMS Category"
+  },
+  {
+   "fieldname": "column_break_grwp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "price",
+   "fieldtype": "Currency",
+   "label": "Price"
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-12-04 12:56:14.249363",
- "modified_by": "sayali@frappe.io",
+ "modified": "2026-01-06 20:10:46.168785",
+ "modified_by": "Administrator",
  "module": "LMS",
  "name": "LMS Program",
  "naming_rule": "By fieldname",

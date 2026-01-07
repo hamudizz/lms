@@ -16,6 +16,7 @@
   "start_time",
   "end_time",
   "timezone",
+  "grade_image",
   "section_break_cssv",
   "published",
   "column_break_wfkz",
@@ -43,6 +44,7 @@
   "assessment_tab",
   "assessment",
   "schedule_tab",
+  "section_break_ayys",
   "timetable_template",
   "column_break_anya",
   "show_live_class",
@@ -53,6 +55,9 @@
   "pricing_tab",
   "section_break_gsac",
   "paid_batch",
+  "paid_grade",
+  "subscription",
+  "total",
   "column_break_iens",
   "amount",
   "currency",
@@ -117,11 +122,13 @@
    "description": "Students will be enrolled in a paid batch once they complete the payment",
    "fieldname": "paid_batch",
    "fieldtype": "Check",
+   "hidden": 1,
    "label": "Paid Batch"
   },
   {
    "fieldname": "seat_count",
    "fieldtype": "Int",
+   "hidden": 1,
    "label": "Seat Count"
   },
   {
@@ -173,7 +180,8 @@
   {
    "description": "These customisations will work on the main batch page.",
    "fieldname": "section_break_ubxi",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "hidden": 1
   },
   {
    "fieldname": "schedule_tab",
@@ -192,6 +200,7 @@
    "depends_on": "paid_batch",
    "fieldname": "amount",
    "fieldtype": "Currency",
+   "hidden": 1,
    "label": "Amount",
    "mandatory_depends_on": "paid_batch"
   },
@@ -199,6 +208,7 @@
    "depends_on": "paid_batch",
    "fieldname": "currency",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Currency",
    "mandatory_depends_on": "paid_batch",
    "options": "Currency"
@@ -240,7 +250,8 @@
   },
   {
    "fieldname": "section_break_ontp",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "hidden": 1
   },
   {
    "fieldname": "batch_details_raw",
@@ -302,6 +313,7 @@
    "description": "If you set an amount here, then the USD equivalent setting will not get applied.",
    "fieldname": "amount_usd",
    "fieldtype": "Currency",
+   "hidden": 1,
    "label": "Amount (USD)"
   },
   {
@@ -359,8 +371,37 @@
   {
    "fieldname": "zoom_account",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Zoom Account",
    "options": "LMS Zoom Settings"
+  },
+  {
+   "default": "0",
+   "fieldname": "paid_grade",
+   "fieldtype": "Check",
+   "label": "Paid Grade"
+  },
+  {
+   "fieldname": "section_break_ayys",
+   "fieldtype": "Section Break",
+   "hidden": 1
+  },
+  {
+   "fieldname": "grade_image",
+   "fieldtype": "Attach Image",
+   "label": "Grade Image"
+  },
+  {
+   "fieldname": "subscription",
+   "fieldtype": "Link",
+   "label": "Subscription",
+   "options": "Subscription"
+  },
+  {
+   "fetch_from": "subscription.price",
+   "fieldname": "total",
+   "fieldtype": "Currency",
+   "label": "Total"
   }
  ],
  "grid_page_length": 50,
@@ -379,8 +420,8 @@
    "link_fieldname": "batch_name"
   }
  ],
- "modified": "2025-12-04 12:54:11.190967",
- "modified_by": "sayali@frappe.io",
+ "modified": "2026-01-06 03:09:19.463569",
+ "modified_by": "Administrator",
  "module": "LMS",
  "name": "LMS Batch",
  "owner": "Administrator",
