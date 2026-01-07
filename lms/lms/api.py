@@ -1640,10 +1640,10 @@ def get_pwa_manifest():
 		"name": title,
 		"short_name": title,
 		"description": "Learn for tomorrow!",
-		"start_url": "/gobez-home",
+		"start_url": "/lms",
 		"icons": [
 			{
-				"src": banner_image or "/assets/lms/frontend/manifest/manifest-icon-192.maskable.png",
+				"src": banner_image or "/files/gobezmainlogo.png",
 				"sizes": "192x192",
 				"type": "image/png",
 				"purpose": "maskable any",
