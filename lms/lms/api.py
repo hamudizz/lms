@@ -1633,7 +1633,7 @@ def get_progress_distribution(progressList):
 
 @frappe.whitelist(allow_guest=True)
 def get_pwa_manifest():
-	title = frappe.db.get_single_value("Website Settings", "app_name") or "Gobez Academy"
+	title = "Gobez Academy"
 	banner_image = frappe.db.get_single_value("Website Settings", "banner_image")
 
 	manifest = {
@@ -1643,7 +1643,7 @@ def get_pwa_manifest():
 		"start_url": "/lms",
 		"icons": [
 			{
-				"src": banner_image or "/files/gobezmainlogo.png",
+				"src": "/files/gobezmainlogo.png",
 				"sizes": "192x192",
 				"type": "image/png",
 				"purpose": "maskable any",
