@@ -139,6 +139,11 @@ const addOtherLinks = () => {
 			label: 'Log out',
 			icon: 'LogOut',
 		})
+		otherLinks.value.unshift({
+			label: 'Back to Home',
+			icon: 'Home',
+			href: '/gobez-home' // Direct absolute path
+		})
 	} else {
 		otherLinks.value.push({
 			label: 'Log in',
@@ -223,6 +228,8 @@ const handleClick = (tab) => {
 				username: userResource.data?.username,
 			},
 		})
+	else if (tab.label == 'Back to Home' && tab.href) 
+		window.location.href = tab.href // Use the direct href
 	else router.push({ name: tab.to })
 }
 
