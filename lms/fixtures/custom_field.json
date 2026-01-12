@@ -380,7 +380,7 @@
   "name": "User-user_category",
   "no_copy": 0,
   "non_negative": 0,
-  "options": "\nBusiness Owner\nManager (Sales/Marketing/Customer)\nEmployee\nStudent\nFreelancer/Just looking\nOthers",
+  "options": "\nStudent\nParent\nTeacher",
   "permlevel": 0,
   "placeholder": null,
   "precision": "",
