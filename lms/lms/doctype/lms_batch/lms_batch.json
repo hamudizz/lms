@@ -31,6 +31,7 @@
   "section_break_rgfj",
   "medium",
   "category",
+  "educational_level",
   "confirmation_email_template",
   "column_break_flwy",
   "seat_count",
@@ -58,6 +59,15 @@
   "paid_grade",
   "subscription",
   "total",
+  "monthly",
+  "monthly_premium",
+  "monththree",
+  "premium3_month",
+  "premium6_month",
+  "month6",
+  "year1",
+  "premium1_year",
+  "referral_discount",
   "column_break_iens",
   "amount",
   "currency",
@@ -306,6 +316,7 @@
   {
    "fieldname": "evaluation_end_date",
    "fieldtype": "Date",
+   "hidden": 1,
    "label": "Evaluation End Date"
   },
   {
@@ -320,6 +331,7 @@
    "default": "0",
    "fieldname": "allow_self_enrollment",
    "fieldtype": "Check",
+   "hidden": 1,
    "label": "Allow Self Enrollment"
   },
   {
@@ -400,8 +412,59 @@
   {
    "fetch_from": "subscription.price",
    "fieldname": "total",
-   "fieldtype": "Currency",
+   "fieldtype": "Float",
    "label": "Total"
+  },
+  {
+   "fieldname": "educational_level",
+   "fieldtype": "Link",
+   "label": "Educational Level",
+   "options": "Educational Level"
+  },
+  {
+   "fieldname": "monthly",
+   "fieldtype": "Currency",
+   "label": "Monthly"
+  },
+  {
+   "fieldname": "monthly_premium",
+   "fieldtype": "Currency",
+   "label": "Monthly Premium"
+  },
+  {
+   "fieldname": "monththree",
+   "fieldtype": "Currency",
+   "label": "3 Month"
+  },
+  {
+   "fieldname": "premium3_month",
+   "fieldtype": "Currency",
+   "label": "3 Month Premium"
+  },
+  {
+   "fieldname": "premium6_month",
+   "fieldtype": "Currency",
+   "label": "6 Month Premium"
+  },
+  {
+   "fieldname": "month6",
+   "fieldtype": "Currency",
+   "label": "6 Month"
+  },
+  {
+   "fieldname": "year1",
+   "fieldtype": "Currency",
+   "label": "1 year"
+  },
+  {
+   "fieldname": "premium1_year",
+   "fieldtype": "Currency",
+   "label": "1 year Premium"
+  },
+  {
+   "fieldname": "referral_discount",
+   "fieldtype": "Float",
+   "label": "Referral Discount"
   }
  ],
  "grid_page_length": 50,
@@ -424,10 +487,8 @@
    "link_fieldname": "payment_for_document"
   }
  ],
- "modified": "2026-01-06 03:09:19.463569",
+ "modified": "2026-01-30 11:10:40.806827",
  "modified_by": "Administrator",
- "modified": "2025-12-23 11:27:00.424331",
- "modified_by": "sayali@frappe.io",
  "module": "LMS",
  "name": "LMS Batch",
  "owner": "Administrator",
