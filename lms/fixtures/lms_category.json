@@ -70,46 +70,11 @@
   "name": "Finance"
  },
  {
-  "category": "Frontend",
-  "docstatus": 0,
-  "doctype": "LMS Category",
-  "modified": "2024-05-08 14:05:16.979275",
-  "name": "Frontend"
- },
- {
-  "category": "Framework",
-  "docstatus": 0,
-  "doctype": "LMS Category",
-  "modified": "2023-06-15 18:01:41.598282",
-  "name": "Framework"
- },
- {
   "category": "programming",
   "docstatus": 0,
   "doctype": "LMS Category",
   "modified": "2025-12-30 00:54:38.869365",
   "name": "programming"
- },
- {
-  "category": "Afaan Oromoo",
-  "docstatus": 0,
-  "doctype": "LMS Category",
-  "modified": "2025-11-20 10:00:46.734283",
-  "name": "Afaan Oromoo"
- },
- {
-  "category": "Gamified",
-  "docstatus": 0,
-  "doctype": "LMS Category",
-  "modified": "2025-12-06 13:53:28.746590",
-  "name": "Gamified"
- },
- {
-  "category": "Grade 7",
-  "docstatus": 0,
-  "doctype": "LMS Category",
-  "modified": "2025-07-24 16:40:06.681194",
-  "name": "Grade 7"
  },
  {
   "category": "Grade 9",
@@ -119,46 +84,11 @@
   "name": "Grade 9"
  },
  {
-  "category": "Grade 10",
-  "docstatus": 0,
-  "doctype": "LMS Category",
-  "modified": "2025-11-20 10:00:43.953209",
-  "name": "Grade 10"
- },
- {
-  "category": "Grade 4",
-  "docstatus": 0,
-  "doctype": "LMS Category",
-  "modified": "2025-07-24 16:39:53.402057",
-  "name": "Grade 4"
- },
- {
   "category": "Textbook",
   "docstatus": 0,
   "doctype": "LMS Category",
   "modified": "2025-08-07 16:40:05.778091",
   "name": "Textbook"
- },
- {
-  "category": "Grade 3",
-  "docstatus": 0,
-  "doctype": "LMS Category",
-  "modified": "2025-07-24 16:39:48.198383",
-  "name": "Grade 3"
- },
- {
-  "category": "Grade 8",
-  "docstatus": 0,
-  "doctype": "LMS Category",
-  "modified": "2025-07-24 16:40:09.762437",
-  "name": "Grade 8"
- },
- {
-  "category": "Grade 1",
-  "docstatus": 0,
-  "doctype": "LMS Category",
-  "modified": "2025-07-24 01:05:49.845249",
-  "name": "Grade 1"
  },
  {
   "category": "Grade 2",
@@ -187,6 +117,62 @@
   "doctype": "LMS Category",
   "modified": "2025-09-14 21:40:11.962244",
   "name": "Trial"
+ },
+ {
+  "category": "Afaan Oromoo",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-11-20 10:00:46.734283",
+  "name": "Afaan Oromoo"
+ },
+ {
+  "category": "Gamified",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-12-06 13:53:28.746590",
+  "name": "Gamified"
+ },
+ {
+  "category": "Grade 7",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-07-24 16:40:06.681194",
+  "name": "Grade 7"
+ },
+ {
+  "category": "Grade 10",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-11-20 10:00:43.953209",
+  "name": "Grade 10"
+ },
+ {
+  "category": "Grade 4",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-07-24 16:39:53.402057",
+  "name": "Grade 4"
+ },
+ {
+  "category": "Grade 3",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-07-24 16:39:48.198383",
+  "name": "Grade 3"
+ },
+ {
+  "category": "Grade 8",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-07-24 16:40:09.762437",
+  "name": "Grade 8"
+ },
+ {
+  "category": "Grade 1",
+  "docstatus": 0,
+  "doctype": "LMS Category",
+  "modified": "2025-07-24 01:05:49.845249",
+  "name": "Grade 1"
  },
  {
   "category": "Exam",
